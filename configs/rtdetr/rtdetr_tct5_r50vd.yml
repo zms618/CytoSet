@@ -1,0 +1,42 @@
+__include__: [
+  '../dataset/tct_5class.yml',
+  '../runtime.yml',
+  './include/dataloader.yml',
+  './include/optimizer.yml',
+  './include/rtdetr_r50vd.yml',
+]
+
+output_dir: ./output/rtdetr_tct5_r50vd
+
+HybridEncoder:
+  dcsr_enabled: True
+  dcsr_codewords: 64
+  dcsr_tau: 0.1
+  dcsr_beta: 1.2
+  dcsr_delta: 0.1
+  dcsr_core_fraction: 0.30
+  dcsr_lambda_com: 0.05
+  dcsr_lambda_div: 0.1
+  dcsr_lambda_sep: 1.0
+  dcsr_lambda: 0.1
+
+RTDETRTransformer:
+  sgqs_enabled: True
+  ocaq_enabled: True
+  ocaq_embed_dim: 64
+
+SetCriterion:
+  ocaq_enabled: True
+  ocaq_embed_dim: 64
+  ocaq_momentum: 0.9
+  ocaq_tau: 0.1
+  ocaq_eta: 0.5
+  ocaq_margin: 0.20
+  ocaq_geo_margin: 0.20
+  ocaq_bg_margin: 0.30
+  ocaq_lambda_ord: 0.5
+  ocaq_lambda_cal: 0.5
+  ocaq_lambda_down: 0.2
+  ocaq_lambda_geo: 0.5
+  ocaq_lambda_bg: 0.1
+  class_ranks: [0, 2, 1, 3, 4]
